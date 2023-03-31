@@ -50,11 +50,11 @@ namespace RaceTest1.Shared
                     if (cardName.Length > 1 && cardName == cardLongName)
                         // ^^^ Check how many digits in the cardName: if it's 2-9, we need an extra step:
                     { // This adds a zero in front of the 2-9 value, so we get the right pic.
-                        string picName = "0" + cardName;
+                        string picName = "0" + cardName + ".jpg";
                         picName.ToLower();
                         cardSuit.ToLower();
 						cardPics[c] = "card_" + cardSuit + "_" + picName;
-                        // This should return "card_diamonds_02", for example
+                        // This should return "card_diamonds_02.jpg", for example
 					}
 					else
                     {
@@ -62,13 +62,12 @@ namespace RaceTest1.Shared
 						picName.ToLower();
 						cardSuit.ToLower();
 						cardPics[c] = "card_" + cardSuit + "_" + picName;
-                        // and this should return "card_diamonds_10", for example
+                        // and this should return "card_diamonds_10.jpg", for example
+                        // or if it's a face, it should return "card_diamonds_a.jpg"
 					}
 				}
 			}
         }
-
-
 
 		public void Shuffle()
         {
@@ -76,11 +75,9 @@ namespace RaceTest1.Shared
 
             Random rng = new Random();
 
-            // one-line method that uses Linq:
+            // the one-line method that uses Linq:
             // cards = cards.OrderBy(a => rng.Next()).ToList();
-
-            // multi-line method that uses Array notation on a list!
-            // (this should be easier to understand)
+            // But instead let's use the Array notation on a list!
             for (int i=0; i<cards.Count; i++)
             {
                 Card tmp = cards[i];
@@ -89,12 +86,6 @@ namespace RaceTest1.Shared
                 cards[swapindex] = tmp;
             }
         }
-
-        /* Maybe we can make a variation on this that's more useful,
-         * but at the moment it's just really to confirm that our 
-         * shuffling method(s) worked! And normally we want our card 
-         * table to do all of the displaying, don't we?!
-         */
 
         public void ShowAllCards()
         {
