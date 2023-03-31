@@ -8,7 +8,8 @@ namespace RaceTest1.Shared
     public class Game
     {
         public static int numberOfPlayers; // number of players in current game
-        List<Player> players = new List<Player>(); // list of objects containing player data
+        public List<Player> players = new List<Player>(); // list of objects containing player data
+        public static List<string> playerNames = new List<string>(); // Carries a list of the player names
 		CardTable cardTable; // object in charge of displaying game information
         Deck deck = new Deck(); // deck of cards
         int currentPlayer = 0; // current player on list
@@ -64,9 +65,10 @@ namespace RaceTest1.Shared
 			IntroducePlayers,
 			PlayerTurn,
 			CheckForEnd,
+            TableMode,
 			GameOver
 		}
-		public Task currentTask = Task.GetNumberOfPlayers;
+		public static Task currentTask = Task.GetNumberOfPlayers;
 
 		public void DoNextTask()
 		{
@@ -87,8 +89,9 @@ namespace RaceTest1.Shared
 			{
 				for (var count = 1; count <= numberOfPlayers; count++)
 				{
-					var name = cardTable.GetPlayerName(count);
-					AddPlayer(name); // NOTE: player list will start from 0 index even though we use 1 for our count here to make the player numbering more human-friendly
+					//var name = cardTable.GetPlayerName(count);
+                    var name = playerNames[count];
+					AddPlayer(name);
 				}
 				currentTask = Task.IntroducePlayers;
 			}
